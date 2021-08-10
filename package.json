@@ -1,0 +1,36 @@
+{
+  "name": "sdc-qandaserver",
+  "version": "1.0.0",
+  "description": "This project builds out the Q & A API to support the project Catbird application and makes it scalable to meet the demands of production traffic.",
+  "main": "index.js",
+  "scripts": {
+    "build": "npx webpack --config webpack.config.js -w nodemon ",
+    "test": "jest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/hackreactor-lax45-frontendcapstone/sec-questandans.git"
+  },
+  "author": "fec-squad-hrlax45",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/hackreactor-lax45-frontendcapstone/sec-questandans/issues"
+  },
+  "homepage": "https://github.com/hackreactor-lax45-frontendcapstone/sec-questandans#readme",
+  "devDependencies": {
+    "@babel/cli": "^7.14.8",
+    "@babel/core": "^7.15.0",
+    "@babel/preset-env": "^7.15.0",
+    "eslint": "^7.32.0",
+    "eslint-config-airbnb-base": "^14.2.1",
+    "eslint-plugin-import": "^2.24.0",
+    "jest": "^27.0.6",
+    "webpack": "^5.49.0",
+    "webpack-cli": "^4.7.2"
+  },
+  "dependencies": {
+    "express": "^4.17.1",
+    "nodemon": "^2.0.12",
+    "postgres": "^1.0.2"
+  }
+}
