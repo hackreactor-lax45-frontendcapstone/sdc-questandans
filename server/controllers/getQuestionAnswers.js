@@ -1,6 +1,6 @@
 
 module.exports = {
-  getQuestionAnswers: function (req, res) {
+  get: function (req, res) {
 
   }
 };

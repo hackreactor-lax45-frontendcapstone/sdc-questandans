@@ -1,6 +1,5 @@
-
 module.exports = {
-  addAnswer: function (req, res) {
+  add: function (req, res) {
 
   }
 };

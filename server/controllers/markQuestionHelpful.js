@@ -1,6 +1,6 @@
 
 module.exports = {
-  markQuestionHelpful: function (req, res) {
+  mark: function (req, res) {
 
   }
 };

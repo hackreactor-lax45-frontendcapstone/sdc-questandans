@@ -1,6 +1,6 @@
 
 module.exports = {
-  getProductQuestions: function (req, res) {
+  get: function (req, res) {
 
   }
 };

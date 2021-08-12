@@ -1,6 +1,4 @@
-
 module.exports = {
-  addQuestions: function (req, res) {
-
+  add: function (req, res) {
   }
 };
