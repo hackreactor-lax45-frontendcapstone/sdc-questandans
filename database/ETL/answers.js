@@ -5,8 +5,8 @@ const copyFrom = require('pg-copy-streams').from;
 const config = require('../config');
 
 // inputfile & target table
-const inputFile = path.join(__dirname, '../data/answers_photos.csv');
-const table = 'answers_photos';
+const inputFile = path.join(__dirname, '../data/answers.csv');
+const table = 'answers';
 
 // connect to database
 const client = new Client(config);

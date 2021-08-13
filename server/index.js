@@ -1,10 +1,10 @@
 const express = require('express');
 // const path = require('path');
 const port = 3010;
-// const router = require('./routers/router');
+const router = require('./routers/router');
 
 const server = express();
-// server.use('api', router);
+server.use('/api', router);
 // // server.use(express.static(path.join(__dirname, '../client')));
 
 server.listen(port, () =>

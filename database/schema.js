@@ -13,24 +13,25 @@ db.schema
   .createTable('answers', (table) => {
     table.increments('id');
     table.integer('question_id');
-    table.string('body', 50);
+    table.string('body');
     table.float('date_written');
-    table.string('answerer_name', 50);
-    table.string('answer_email', 50);
+    table.string('answerer_name');
+    table.string('answer_email');
     table.integer('reported');
     table.integer('helpful');
   })
   .createTable('answers_photos', (table) => {
     table.increments('id');
     table.integer('answer_id');
-    table.string('url', 200);
+    table.string('url');
   })
   .createTable('questions', (table) => {
     table.increments('id');
     table.integer('product_id');
+    table.string('body');
     table.float('date_written');
-    table.string('asker_name', 50);
-    table.string('asker_email', 50);
+    table.string('asker_name');
+    table.string('asker_email');
     table.integer('reported');
     table.integer('helpful');
   })
