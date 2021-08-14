@@ -1,11 +1,14 @@
 const express = require('express');
+const bodyParser = require('body-parser');
+const db = require('../database/index');
 // const path = require('path');
 const port = 3010;
-const router = require('./routers/router');
-
 const server = express();
-server.use('/api', router);
-// // server.use(express.static(path.join(__dirname, '../client')));
+const router = require('./router');
 
-server.listen(port, () =>
-  console.log('listening to port number: ', port));
+server.use(bodyParser.json());
+// server.use(express.static(path.join(__dirname, '../client')));
+
+server.use('/api', router);
+
+server.listen(port, () => console.log('listening to port number: ', port));
