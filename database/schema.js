@@ -1,10 +1,4 @@
-const knex = require('knex');
-const config = require('./config');
-
-const db = knex({
-  client: 'pg',
-  connection: config,
-});
+const db = require('./db');
 
 const newSchema = () => {
   db.schema
