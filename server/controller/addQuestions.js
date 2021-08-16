@@ -1,8 +1,6 @@
 const db = require('../../database/db');
 
 module.exports = (req, res) => {
-  console.log(req.body);
-
   db('questions').insert({
     product_id: req.body.product_id,
     body: req.body.body,
