@@ -5,19 +5,18 @@ const router = express.Router();
 
 router
   .route('/qa/questions')
-  .get(controller.getProductQuestions);
-//   .post(controller.addQuestions)
-
-// router
-//   .route('/qa/questions/:question_id/answers')
-//   .get(controller.getQuestionAnswers)
-//   .post(controller.addAnswer)
-
+  .get(controller.getProductQuestions)
+  .post(controller.addQuestions);
 
 router
-.put('/qa/questions/:question_id/report', controller.reportQuestion)
-.put('/qa/questions/:question_id/helpful', controller.markQuestionHelpful)
-.put('/qa/answers/:answer_id/report', controller.reportAnswer)
-.put('/qa/answers/:answer_id/helpful', controller.markAnswerHelpful)
+  .route('/qa/questions/:question_id/answers')
+//   .get(controller.getQuestionAnswers)
+  .post(controller.addAnswers);
+
+router
+  .put('/qa/questions/:question_id/report', controller.reportQuestion)
+  .put('/qa/questions/:question_id/helpful', controller.markQuestionHelpful)
+  .put('/qa/answers/:answer_id/report', controller.reportAnswer)
+  .put('/qa/answers/:answer_id/helpful', controller.markAnswerHelpful);
 
 module.exports = router;
