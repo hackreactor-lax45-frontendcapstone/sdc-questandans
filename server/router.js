@@ -13,16 +13,11 @@ router
 //   .get(controller.getQuestionAnswers)
 //   .post(controller.addAnswer)
 
-//   router
-//   .route('/qa/questions/:question_id/report')
-//   .put(controller.reportQuestion)
 
 router
-  .put('/qa/answers/:answer_id/helpful', controller.markAnswerHelpful)
-  .put('/qa/questions/:question_id/helpful', controller.markQuestionHelpful);
-
-//   router
-//   .route('/qa/answers/:answer_id/report')
-//   .put(controller.reportAnswer)
+.put('/qa/questions/:question_id/report', controller.reportQuestion)
+.put('/qa/questions/:question_id/helpful', controller.markQuestionHelpful)
+.put('/qa/answers/:answer_id/report', controller.reportAnswer)
+.put('/qa/answers/:answer_id/helpful', controller.markAnswerHelpful)
 
 module.exports = router;

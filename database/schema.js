@@ -12,7 +12,7 @@ const newSchema = () => {
       table.float('date_written');
       table.string('answerer_name');
       table.string('answer_email');
-      table.integer('reported');
+      table.boolean('reported');
       table.integer('helpful');
     })
     .createTable('answers_photos', (table) => {
@@ -27,7 +27,7 @@ const newSchema = () => {
       table.float('date_written');
       table.string('asker_name');
       table.string('asker_email');
-      table.integer('reported');
+      table.boolean('reported');
       table.integer('helpful');
     })
     .then(() => {
