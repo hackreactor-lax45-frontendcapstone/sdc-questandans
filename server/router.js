@@ -5,7 +5,7 @@ const router = express.Router();
 
 router
   .route('/qa/questions')
-  .get(controller.getProductQuestions)
+  .get(controller.getProductQuestions);
 //   .post(controller.addQuestions)
 
 // router
@@ -13,17 +13,13 @@ router
 //   .get(controller.getQuestionAnswers)
 //   .post(controller.addAnswer)
 
-// router
-//   .route('/qa/questions/:question_id/helpful')
-//   .put(controller.markQuestionHelpful)
-
 //   router
 //   .route('/qa/questions/:question_id/report')
 //   .put(controller.reportQuestion)
 
-//   router
-//   .route('/qa/answers/:answer_id/helpful')
-//   .put(controller.markAnswerHelpful)
+router
+  .put('/qa/answers/:answer_id/helpful', controller.markAnswerHelpful)
+  .put('/qa/questions/:question_id/helpful', controller.markQuestionHelpful);
 
 //   router
 //   .route('/qa/answers/:answer_id/report')

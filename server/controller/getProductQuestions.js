@@ -1,109 +1,63 @@
 const db = require('../../database/db');
 const moment = require('moment');
 
-module.exports = (req, res) => {
+function getProductQuestions (req, res) {
   db('questions').where('product_id', Number(req.query.product_id))
     .then((results) => {
-      const response = [];
-      results.forEach((result) => {
-        db('answers').where('question_id', result.id)
+      const response = {
+        product_id: req.query.product_id,
+        results: [],
+      };
+
+      results.forEach(async (result) => {
+        const question = {
+          question_id: result.id,
+          question_body: result.body,
+          question_date: moment(result.date_written).toISOString(),
+          asker_name: result.asker_name,
+          // asker_email: result.asker_email,
+          question_helpfulness: result.helpful,
+          reported: Boolean(result.reported),
+        };
+
+        await db('answers').where('question_id', result.id)
           .then((answers) => {
-            answers.forEach((answer) => {
-              db('answers_photos').where('answer_id', answer.id)
+            const answersObj = {};
+            answers.forEach(async (answer) => {
+              const answerObj = {
+                id: answer.id,
+                body: answer.body,
+                date: moment(answer.date_written).toISOString(),
+                answerer_name: answer.answerer_name,
+                reported: Boolean(answer.reported),
+                helpfulness: answer.helpful,
+              };
+              await db('answers_photos').where('answer_id', answer.id)
                 .then((photos) => {
                   const photosArray = [];
-                  photos.forEach((photo) => {
+                  photos.forEach(async (photo) => {
                     const photoObj = {
                       id: photo.id,
                       url: photo.url,
                     };
                     photosArray.push(photoObj);
-                  })
-                  console.log(photosArray)
-                })
-            })
-          })
-        // const question = {
-        //   question_id: result.id,
-        //   question_body: result.body,
-        //   question_date: moment(result.date_written).toISOString(),
-        //   asker_name: result.asker_name,
-        //   // asker_email: result.asker_email,
-        //   question_helpfulness: result.helpful,
-        //   reported: Boolean(result.reported),
-        // };
-        // db('answers').where('question_id', result.id)
-        //   .then((answers) => {
-        //     answers.forEach((answer) => {
-        //       db('answers_photo').where('answer_id', answer.id)
-        //       .then((photos) => {
-        //         photos.forEach((photo) => {
-        //           console.log(photo)
-        //         })
-        //       })
-        //     })
-        // answers.forEach((answer) => {
-        //   const answerObj = {
-        //     id: answer.id,
-        //     body: answer.body,
-        //     date: moment(answer.date_written).toISOString(),
-        //     answerer_name: answer.answerer_name,
-        //     reported: Boolean(answer.reported),
-        //     helpfulness: answer.helpful,
-        //     photos: [],
-        //   };
-        //   question.answers = {
-        //     [answer.id]: answerObj,
-        //   };
-        // });
-
-        // response.push(question);
-      })
+                  });
+                  answerObj.photos = photosArray;
+                  answersObj[answer.id] = answerObj;
+                  question.answers = answersObj;
+                  response.results.push(question);
+                  console.log('response', response);
+                });
+            });
+          });
+      });
       return response;
     })
     .then((response) => res.status(200).send(response))
     .catch((err) => res.status(404).send(err));
-
-
-  //     await db('answers').where('question_id', result.id)
-  //       .then((answerResults) => {
-  //         answerResults.map((answerResult) => {
-  //           const answers = {
-  //             [answerResult.id]: {
-  //               id: answerResult.id,
-  //               body: answerResult.body,
-  //               date: moment(answerResult.date_written).toISOString(),
-  //               answerer_name: answerResult.answerer_name,
-  //               reported: Boolean(answerResult.reported),
-  //               helpfulness: answerResult.helpful,
-  //               photos: [],
-  //             }
-  //           };
-  //           question.answers = answers;
-  //         })
-  //         return answerResults.id;
-  //       })
-  //       .then((id) => {
-  //         await db('answers_photo').where('answer_id', id)
-  //         .then((photos) => {
-  //           photos.map((photo) => {
-  //             const photoObj = {
-  //               id: photo.id,
-  //               url: photo.url
-  //             }
-  //           question.answers.photos.push(photoObj);
-  //           })
-  //         })
-  //       })
-
-  //     console.log(question, 'question');
-  //     return question
-  //   })
-  //   .then((response) => res.status(200).send(response))
-  // })
-  // .catch((err) => res.status(404).send(err));
 };
 
+module.exports = getProductQuestions;
 
 // server.get('qa/questions', (req, res) => {
 //   db.getProductQuestions(Number(req.query.product_id), (err, data) => {
