@@ -1,5 +1,5 @@
-const db = require('../../database/db');
 const moment = require('moment');
+const db = require('../../database/db');
 
 module.exports = async (req, res) => {
   const count = req.query.count || 5;
