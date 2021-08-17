@@ -1,7 +1,6 @@
 const db = require('./db');
 
-module.exports = () => {
-return db.schema
+module.exports = () => db.schema
   .dropTableIfExists('answers')
   .dropTableIfExists('answers_photos')
   .dropTableIfExists('questions')
@@ -34,4 +33,3 @@ return db.schema
     console.log('db and tables created!');
   })
   .catch((err) => console.error(err));
-}

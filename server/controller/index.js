@@ -17,10 +17,3 @@ module.exports = {
   reportAnswer,
   reportQuestion,
 };
-
-// server.get('/api/questions/:question_id/answers', (req, res) => {
-//   db.getQuestionAnswers((err, data) => {
-//     if (err) {
-//       res.status(404).send(err);
-//     } else {
-//       res.status(200).json(data);
