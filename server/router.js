@@ -10,7 +10,7 @@ router
 
 router
   .route('/qa/questions/:question_id/answers')
-//   .get(controller.getQuestionAnswers)
+  .get(controller.getQuestionAnswers)
   .post(controller.addAnswers);
 
 router
