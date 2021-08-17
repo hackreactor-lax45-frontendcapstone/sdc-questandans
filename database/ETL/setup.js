@@ -9,7 +9,6 @@ schema()
 .then(() => db.raw(`SELECT SETVAL('answers_id_seq', (SELECT MAX(id) + 1 FROM answers))`))
 .then(() => questions())
 .then(() => db.raw(`SELECT SETVAL('questions_id_seq', (SELECT MAX(id) + 1 FROM questions))`))
-
 .then(() => answers_photos())
 .then(() => db.raw(`SELECT SETVAL('answers_photos_id_seq', (SELECT MAX(id) + 1 FROM answers_photos))`))
 .catch((err) => console.log(err))
