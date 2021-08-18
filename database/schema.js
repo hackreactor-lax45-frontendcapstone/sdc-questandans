@@ -7,6 +7,7 @@ module.exports = () => db.schema
   .createTable('answers', (table) => {
     table.increments('id');
     table.integer('question_id');
+    table.index('question_id');
     table.string('body');
     table.float('date_written');
     table.string('answerer_name');
@@ -17,11 +18,13 @@ module.exports = () => db.schema
   .createTable('answers_photos', (table) => {
     table.increments('id');
     table.integer('answer_id');
+    table.index('answer_id');
     table.string('url');
   })
   .createTable('questions', (table) => {
     table.increments('id');
     table.integer('product_id');
+    table.index('product_id');
     table.string('body');
     table.float('date_written');
     table.string('asker_name');
