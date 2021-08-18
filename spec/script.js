@@ -30,16 +30,16 @@ export default function () {
   http.get(`http://127.0.0.1:3010/api/qa/questions/${questionId}/answers`);
   http.post(`http://127.0.0.1:3010/api/qa/questions/${questionId}/answers`, JSON.stringify(answerData), params);
 
-  //put request for answers report
+  // put request for answers report
   http.put(`http://127.0.0.1:3010/api/qa/answers/${answerId}/report`);
 
-  //put request for answer upvote
+  // put request for answer upvote
   http.put(`http://127.0.0.1:3010/api/qa/answers/${answerId}/helpful`);
 
-  //put request for question report
+  // put request for question report
   http.put(`http://127.0.0.1:3010/api/qa/questions/${questionId}/report`);
 
-  //put request for question upvote
+  // put request for question upvote
   http.put(`http://127.0.0.1:3010/api/qa/questions/${questionId}/helpful`);
 
   sleep(1);
