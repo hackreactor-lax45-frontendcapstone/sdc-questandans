@@ -12,7 +12,7 @@ module.exports = async (req, res) => {
 
   await db('questions')
     .select()
-    .where('product_id', Number(req.query.product_id))
+    .where({ product_id: Number(req.query.product_id), reported: false })
     .limit(count)
     .offset(offset)
     .then((questions) => {

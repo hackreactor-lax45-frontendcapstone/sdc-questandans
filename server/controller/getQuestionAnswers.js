@@ -14,7 +14,7 @@ module.exports = async (req, res) => {
 
   await db('answers')
     .select('id', 'question_id', 'body', 'date_written', 'answerer_name', 'helpful')
-    .where('question_id', req.params.question_id)
+    .where({ question_id: req.params.question_id, reported: false })
     .limit(count)
     .offset(offset)
     .then((answers) => {

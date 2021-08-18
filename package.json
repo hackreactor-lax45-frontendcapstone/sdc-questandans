@@ -6,7 +6,7 @@
   "scripts": {
     "build": "nodemon server/index.js",
     "test": "jest",
-    "create": "node database/schema.js"
+    "create": "node database/ETL/setup.js"
   },
   "repository": {
     "type": "git",
