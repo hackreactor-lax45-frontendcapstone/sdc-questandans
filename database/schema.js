@@ -25,6 +25,7 @@ module.exports = () => db.schema
     table.increments('id');
     table.integer('product_id');
     table.index('product_id');
+    table.index('reported');
     table.string('body');
     table.float('date_written');
     table.string('asker_name');

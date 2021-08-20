@@ -1,6 +1,6 @@
+require('newrelic');
 const express = require('express');
 const bodyParser = require('body-parser');
-const db = require('../database/db');
 // const path = require('path');
 const port = 3010;
 const server = express();
@@ -11,4 +11,4 @@ server.use(bodyParser.json());
 
 server.use('/api', router);
 
-server.listen(port, () => console.log('listening to port number: ', port));
+server.listen(port);
