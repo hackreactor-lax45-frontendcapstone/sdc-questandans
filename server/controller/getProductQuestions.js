@@ -75,12 +75,17 @@ const db = require('../../database/db');
 //         .catch((err) => res.status(404).send(err));
 //     });
 // };
-module.exports = (req, res) => {
+
+module.exports = async (req, res) => {
 // let response = [];
-db.raw(`SELECT questions.id, questions.body, questions.date_written, questions.asker_name, questions.reported, questions.helpful, question_id, answers.id, answers.question_id, answers.body, answers.date_written, answers.answerer_name, answers.helpful, answers_photos.answer_id, answers_photos.id, answers_photos.url from answers_photos FULL JOIN answers on answers_photos.answer_id = answers.id FULL JOIN questions on answers.question_id = questions.id where product_id = ${req.query.product_id}`)
+await db.raw(`SELECT product_id, question_id, questions.q_body, questions.date_written, questions.asker_name, questions.reported, questions.q_helpful, answers.question_id, answers.a_body, answers.date_written, answers.answerer_name, answers.a_helpful, answers_photos.answer_id, answers_photos.id, answers_photos.url from answers_photos FULL JOIN answers on answers_photos.answer_id = answers.id FULL JOIN questions on answers.question_id = questions.id where product_id = ${req.query.product_id}`)
 .then((questions) => {
-res.json(questions.rows);
-})
+//   questions.rows.forEach((question) => {
+// console.log(question.product_id)
+res.send(questions);
+// })
+});
+
 
 
 //       // const response = {

@@ -4,12 +4,14 @@ import http from 'k6/http';
 import { sleep } from 'k6';
 
 export const options = {
-  vus: 1000,
+  vus: 1,
   duration: '1s',
 };
 
 export default function () {
-  const randomNumber = Math.ceil(Math.random() * 25200) + 1;
+  const max = 1000000;
+  const min = 900000;
+  const randomNumber = Math.ceil(Math.random() * (max - min)) + min;
   const productId = randomNumber;
   // const questionId = randomNumber;
   // const answerId = randomNumber;

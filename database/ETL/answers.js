@@ -1,6 +1,6 @@
 const fs = require('fs');
 const path = require('path');
-const { Pool, Client } = require('pg');
+const { Client } = require('pg');
 const copyFrom = require('pg-copy-streams').from;
 const config = require('../config');
 
