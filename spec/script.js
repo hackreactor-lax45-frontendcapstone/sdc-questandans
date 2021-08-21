@@ -4,15 +4,14 @@ import http from 'k6/http';
 import { sleep } from 'k6';
 
 export const options = {
-  vus: 1,
+  vus: 500,
   duration: '1s',
 };
 
 export default function () {
   const max = 1000000;
   const min = 900000;
-  const randomNumber = Math.ceil(Math.random() * (max - min)) + min;
-  const productId = randomNumber;
+  const productId = Math.ceil(Math.random() * (max - min)) + min;
   // const questionId = randomNumber;
   // const answerId = randomNumber;
   // const questionData = {

@@ -77,28 +77,70 @@ const db = require('../../database/db');
 // };
 
 module.exports = async (req, res) => {
-// let response = [];
-await db.raw(`SELECT product_id, question_id, questions.q_body, questions.date_written, questions.asker_name, questions.reported, questions.q_helpful, answers.question_id, answers.a_body, answers.date_written, answers.answerer_name, answers.a_helpful, answers_photos.answer_id, answers_photos.id, answers_photos.url from answers_photos FULL JOIN answers on answers_photos.answer_id = answers.id FULL JOIN questions on answers.question_id = questions.id where product_id = ${req.query.product_id}`)
-.then((questions) => {
-//   questions.rows.forEach((question) => {
-// console.log(question.product_id)
-res.send(questions);
-// })
-});
+  const response = {
+    product_id: req.query.product_id,
+    results: [],
+  };
 
+  const allQuestions = {};
 
-
-//       // const response = {
-//       //   product_id: req.query.product_id,
-//       //   results: [{question_id: data.question_id,
-//       //     question_body: data.questions.body,
-//       //     question_date: moment(data.questions.date_written).toISOString(),
-//       //     asker_name: data.questions.asker_name,
-//       //     question_helpfulness: data.questions.helpful,
-//       //     reported: Boolean(data.questions.reported)
-
-//       //   }]
-//       // }
-//       console.log('yes');
-//     });
+  await db.raw(`SELECT q_id, q_body, q_date_written, asker_name, questions.reported, q_helpful, a_id, a_body, answers.a_date_written, answers.answerer_name, answers.a_helpful, p_id, url from answers_photos FULL JOIN answers on answers_photos.answer_id = answers.a_id FULL JOIN questions on answers.question_id = questions.q_id where questions.product_id = ${req.query.product_id}`)
+    .then((questions) => {
+      questions.rows.forEach((question) => {
+        if (question.q_id && !allQuestions[question.q_id]) {
+          allQuestions[question.q_id] = {
+            question_id: question.q_id,
+            question_body: question.q_body,
+            question_date: moment(question.q_date_written).toISOString(),
+            asker_name: question.asker_name,
+            question_helpfulness: question.q_helpful,
+            reported: Boolean(question.reported),
+          };
+          if (question.a_id) {
+            const answersObj = {
+              id: question.a_id,
+              body: question.a_body,
+              date: moment(question.a_date_written).toISOString(),
+              answerer_name: question.answerer_name,
+              helpfulness: question.a_helpful,
+              photos: [],
+            };
+            if (question.p_id) {
+              const photosObj = {
+                id: question.p_id,
+                url: question.url,
+              };
+              answersObj.photos.push(photosObj);
+            }
+            allQuestions[question.q_id].answers = {
+              [question.a_id]: answersObj,
+            };
+          }
+        } else if ((question.q_id && allQuestions[question.q_id])) {
+          if (question.a_id && !allQuestions[question.q_id].answers[question.a_id]) {
+            const answersObj = {
+              id: question.a_id,
+              body: question.a_body,
+              date: moment(question.a_date_written).toISOString(),
+              answerer_name: question.answerer_name,
+              helpfulness: question.a_helpful,
+              photos: [],
+            };
+            allQuestions[question.q_id].answers[question.a_id] = answersObj;
+          }
+          if (question.p_id) {
+            const photosObj = {
+              id: question.p_id,
+              url: question.url,
+            };
+            allQuestions[question.q_id].answers[question.a_id].photos.push(photosObj);
+          }
+        }
+      });
+      for (const q in allQuestions) {
+        response.results.push(allQuestions[q]);
+      }
+    })
+    .then(() => res.status(200).send(response))
+    .catch((err) => res.status(404).send(err));
 };
