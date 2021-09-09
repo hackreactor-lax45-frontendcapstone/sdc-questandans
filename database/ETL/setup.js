@@ -6,10 +6,10 @@ const db = require('../db');
 
 schema()
   .then(() => questions())
-  .then(() => db.raw(`SELECT SETVAL('questions_q_id_seq', (SELECT MAX(q_id) + 1 FROM questions))`))
+  .then(() => db.raw(`SELECT SETVAL('questions_id_seq', (SELECT MAX(id) + 1 FROM questions))`))
   .then(() => answers())
-  .then(() => db.raw(`SELECT SETVAL('answers_a_id_seq', (SELECT MAX(a_id) + 1 FROM answers))`))
+  .then(() => db.raw(`SELECT SETVAL('answers_id_seq', (SELECT MAX(id) + 1 FROM answers))`))
   .then(() => answersPhotos())
-  .then(() => db.raw(`SELECT SETVAL('answers_photos_p_id_seq', (SELECT MAX(p_id) + 1 FROM answers_photos))`))
+  .then(() => db.raw(`SELECT SETVAL('answers_photos_id_seq', (SELECT MAX(id) + 1 FROM answers_photos))`))
   .catch((err) => console.log(err))
   .finally(() => db.destroy(() => console.log('closed connection')));
