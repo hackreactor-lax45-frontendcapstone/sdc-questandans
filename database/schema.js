@@ -62,3 +62,41 @@ module.exports = () => db.schema
     console.log('db and tables created!');
   })
   .catch((err) => console.error(err));
+
+
+// DROP TABLE IF EXISTS answers_photo;
+
+// CREATE TABLE answers_photo (
+//   id SERIAL PRIMARY KEY,
+//   answer_id INTEGER NULL DEFAULT NULL,
+//   url VARCHAR(150) NULL DEFAULT NULL
+// );
+
+// DROP TABLE IF EXISTS answers;
+
+// CREATE TABLE answers (
+//   id SERIAL PRIMARY KEY,
+//   question_id INTEGER NULL DEFAULT NULL,
+//   body VARCHAR(250) NULL DEFAULT NULL,
+//   date_written FLOAT NULL DEFAULT NULL,
+//   answerer_name VARCHAR(250) NULL DEFAULT NULL,
+//   answer_email VARCHAR(250) NULL DEFAULT NULL,
+//   reported BOOLEAN NULL DEFAULT NULL,
+//  helpful INTEGER NULL DEFAULT NULL
+// );
+
+// DROP TABLE IF EXISTS questions;
+
+// CREATE TABLE questions (
+//   id SERIAL PRIMARY KEY,
+//   product_id INTEGER NULL DEFAULT NULL,
+//   body VARCHAR(250) NULL DEFAULT NULL,
+//   date_written FLOAT NULL DEFAULT NULL,
+//   asker_name VARCHAR(250) NULL DEFAULT NULL,
+//   asker_email VARCHAR(250) NULL DEFAULT NULL,
+//   reported BOOLEAN NULL DEFAULT NULL,
+//   helpful INTEGER NULL DEFAULT NULL
+// );
+
+// ALTER TABLE answers_photo ADD FOREIGN KEY (answer_id) REFERENCES answers (id);
+// ALTER TABLE answers ADD FOREIGN KEY (question_id) REFERENCES questions (id);
